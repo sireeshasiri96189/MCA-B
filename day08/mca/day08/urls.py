@@ -1,0 +1,21 @@
+from django.shortcuts import render
+
+# Create your views here.
+from django.shortcuts import render
+from .models import EmployeeModel  
+from .forms import EmployeeForm
+#display & save form data   
+def insert_student(request):
+    context ={}# dictionary for initial data with field names as keys
+    ob_form = StudentForm(request.POST or None)
+    if ob_form.is_valid():
+        ob_form.save()
+        return HttpResponse("Data Saved")
+    context['form']= ob_form
+    return render(request, "insert_student.html", context) 
+from django.urls import path
+from . import views
+urlpatterns = [
+   path('insert_student/',views.insert_student,name='insert_student'),
+    # other paths as needed
+]
